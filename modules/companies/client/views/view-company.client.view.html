@@ -1,0 +1,207 @@
+<section ng-init="initView()">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-12">
+            <br>
+            <ol class="breadcrumb">
+                <li>
+                    <strong>ข้อมูลบริษัท {{vm.company.name}}</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-md-3 marginitem">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>ข้อมูลบริษัท</h5>
+                            </div>
+                            <div>
+                                <div class="ibox-content no-padding border-left-right text-center">
+                                    <img ng-src="{{vm.company.images[0].url}}" alt="รูปภาพ" width="220px" height="220px">
+                                </div>
+                                <div class="ibox-content profile-content">
+                                    <h4><strong>{{vm.company.name}}</strong></h4>
+                                    <p><i class="fa fa-map-marker"></i> {{vm.company.address.address}} {{vm.company.address.district}}
+                                        {{vm.company.address.subdistrict}} {{vm.company.address.province}} {{vm.company.address.postcode}},
+                                        {{vm.company.address.country.en.common}}
+                                        <br>
+                                        <hr>
+                                        <small ng-if="vm.company.email"><strong>อีเมล์ : </strong> {{vm.company.email}}<br></small>
+                                        <small ng-if="vm.company.tel"><strong>โทรศัพท์ : </strong> {{vm.company.tel}}<br></small>
+                                        <small ng-if="vm.company.fax"><strong>โทรสาร : </strong> {{vm.company.fax}}<br></small>
+                                        <small ng-if="vm.company.website"><strong>เว็บไซต์ : </strong> {{vm.company.website}}<br></small>
+                                    </p>
+                                    <h5>
+                                        หมายเหตุ
+                                    </h5>
+                                    <p>{{vm.company.note}}</p>
+                                    <hr>
+                                    <div class="row m-t-lg">
+                                        <div class="col-md-12">
+                                            <i class="fa fa-users"></i> &nbsp; พนักงานทั้งหมด <strong> {{vm.employee.length}} คน</strong>
+                                            <br>
+                                            <br>
+                                        </div>
+                                        <!-- <div class="col-md-12">
+                                    <i class="fa fa-clock-o"></i> &nbsp; การลงชื่อเข้างาน <strong>{{vm.checkin.length}} ครั้ง</strong>
+                                    <br>
+                                    <br>
+                                </div>
+                                <div class="col-md-12">
+                                    <i class="fa fa-file-text-o"></i> &nbsp; การลาทั้งหมด <strong>{{vm.leave.length}} ครั้ง</strong>
+                                    <br>
+                                    <br>
+                                </div> -->
+                                    </div>
+                                    <hr>
+                                    <div class="user-button">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button class="btn btn-primary btn-sm btn-block" type="button" ui-sref="companies.edit({ companyId: vm.company._id })">
+                                            <i class="glyphicon glyphicon-edit"></i> แก้ไขข้อมูล
+                                        </button>
+                                            </div>
+                                            <!--                                     <div class="col-md-6">
+                                        <button type="button" class="btn btn-default btn-sm btn-block" ng-click="vm.remove()">
+                                            <i class="glyphicon glyphicon-trash"></i> ลบข้อมูล
+                                        </button>
+                                    </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>ข้อมูลการลงชื่อวันนี้</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="panel-collapse collapse in fix-scroll" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="row">
+                                <div class="col-lg-4 marginitem animated fadeInRight" ng-repeat="ci in vm.checkin">
+                                    <div class="contact-box text-center">
+                                        <h3>{{ci.user.employeeprofile.firstname}} {{ci.user.employeeprofile.lastname}}</h3>
+                                        <div class="m-b-sm">
+                                            <div class="row">
+                                                <div class="col-lg-2"></div>
+                                                <div class="col-lg-8 text-center">
+                                                    <img alt="image" class="img-circle" src="{{ci.user.employeeprofile.image}}" width="124px" height="124px">
+                                                </div>
+                                                <div class="col-lg-2"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row text-center">
+                                            <p class="font-Bold">{{ci.user.employeeprofile.jobTitle}}</p>
+                                            <div class="col-lg-12 text-center">
+                                                <div><span class="font-Bold">เวลาเข้างาน : </span>
+                                                    <span>{{ci.dateTimeIn || 'N/A' | date:'mediumTime'}}</span>
+                                                </div>
+                                                <div><span class="font-Bold">เวลาออกงาน :</span>
+                                                    <span>{{ci.dateTimeOut || 'N/A' | date:'mediumTime'}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  -->
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>ข้อมูลการลาทั้งหมด</h5>
+                    </div>
+                    <!-- <div class="rowitems"> -->
+                    <div class="rowitems">
+                        <div class="initems m-r-md" ng-repeat="lev in vm.leave">
+                            <!-- <div class="col-lg-9">  -->
+                            <!-- <div class="row">
+                                <div class="col-lg-8"> -->
+                            <div class="contact-box text-center animated fadeInRight" style="width:250px;">
+                                <h3>{{lev.user.employeeprofile.firstname}} {{lev.user.employeeprofile.lastname}}</h3>
+                                <div class="m-b-sm">
+                                    <div class="row">
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-lg-8 text-center">
+                                            <img alt="image" class="img-circle" src="{{lev.user.employeeprofile.image}}" width="124px" height="124px">
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+                                </div>
+                                <div class="row text-center">
+                                    <p class="font-bold">{{lev.user.employeeprofile.jobTitle}}</p>
+                                    <div class="col-lg-12 text-center">
+                                        <div><span class="font-Bold">ประเภทการลา : </span><span class="itemcontentNormal">{{lev.leaveType}}</span>
+                                        </div>
+                                        <div><span class="font-Bold">รายละเอียดการลา : </span><span class="itemcontentNormal">{{lev.leaveDetail}}</span>
+                                        </div>
+                                        <div ng-if="lev.approveStatus == 'Waiting'">
+                                            <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-check"></i> อนุมัติ</button>
+                                            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-times"></i> ไม่อนุมัติ</button>
+                                        </div>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                            <!-- </div>
+                            </div> -->
+                            <!-- </div>  -->
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                </div>
+
+
+                <!-- <div class="col-md-8">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h5>พนักงานทั้งหมด</h5>
+                        <h2>{{vm.employee.length}}/25</h2>
+                        <div class="text-center">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{{vm.emppersen}}" style="{{vm.emppersenStyle}}">
+                                    {{vm.emppersen | number : 2}}%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h5>การลงชื่อเข้างาน</h5>
+                        <h2>{{vm.checkin.length}}/3000</h2>
+                        <div class="text-center">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{{vm.checkinPersen}}" style="{{vm.checkinPersenStyle}}">
+                                    {{vm.checkinPersen | number : 2}}%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h5>การลาทั้งหมด</h5>
+                        <h2>{{vm.leave.length}}/500</h2>
+                        <div class="text-center">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{{vm.leavePersen}}" style="{{vm.leavePersenStyle}}">
+                                    {{vm.leavePersen | number : 2}}%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            </div>
+        </div>
+</section>

@@ -1,0 +1,85 @@
+<section>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <br>
+            <ol class="breadcrumb">
+                <li>
+                    <strong>รายงานสรุปการมาทำงานของพนักงาน (รายเดือนแบบสรุป)<strong> 
+                </strong></strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <br>
+    <div class="animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-2 col-md-2" style="font-weight: bold;font-size: 1.5em;">
+                 <div class="form-group">
+                    <select class="form-control m-b" id="department" name="department">
+                    <option value="" disabled selected>----- เลือกสาขา -----</option>
+                    </select>
+                </div> 
+            </div>
+            <div class="col-sm-3 col-md-3">
+                <div class="form-group">
+                    <input class="form-control" id="startDate" name="startDate" ng-model="vm.startDate" type="date">
+                </div>
+            </div>
+            <div class="col-sm-1 col-md-1" style="font-weight: bold;font-size: 1.0em;text-align: center">
+                ถึง
+            </div>
+            <div class="col-sm-3 col-md-3">
+                <div class="form-group">
+                    <input class="form-control" id="endDate" name="endDate" ng-model="vm.endDate" type="date">
+                </div>
+            </div>
+            <div class="col-sm-3 col-md-3">
+                <div class="form-group">
+                    <a class="btn btn-primary btn-block" ng-click="vm.searchReport(vm.startDate,vm.endDate)">ค้นหา</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center" ng-if="vm.startCall">
+        <p>ไม่มีข้อมูลรายงาน</p>
+    </div>
+    <div class ng-if="vm.report.length > 0">
+        <div class="contact-box table-responsive">
+            <table class="table table-striped table-bordered table-hover dataTables-example ng-isolate-scope dataTable" id="DataTables_Table_2" role="grid" aria-describedby="DataTables_Table_2_info" datatable dt-options="dtOptions">
+                <thead>
+                    <tr role="row">
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">ลำดับ</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">รหัสพนักงาน</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">ชื่อ - นามสกุล</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">วันทำงาน (วัน)</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">มาสาย (ชม.)</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">ลาป่วย (วัน)</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">ลาพักร้อน (วัน)</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">ลากิจ (วัน)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="gradeA" ng-repeat="item in vm.report" role="row">
+                        <td class="text-center">{{$index + 1}}</td>
+                        <td>{{item.empID}}</td>
+                        <td>{{item.firstName}} {{item.lastName}}</td>
+                        <td class="text-center">{{item.taskDay || 0}}</td>
+                        <td class="text-center">{{item.late.hours}}</td>
+                        <td class="text-center">{{item.leaveSick || 0}}</td>
+                        <td class="text-center">{{item.vacation || 0}}</td>
+                        <td class="text-center">{{item.personalLeave || 0}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-right">
+                <div class="row">
+                    <div class="col col-md-4"></div>
+                    <div class="col col-md-4"></div>
+                    <div class="col col-md-4">
+                        <a class="btn btn-default btn-block" href="https://time-attendance-test.herokuapp.com/api/reportsummarymonthly/export/excel/{{vm.companyId}}/{{vm.inputDateStart}}/{{vm.inputDateEnd}}" target="_self">Export</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

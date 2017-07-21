@@ -1,0 +1,124 @@
+.content {
+    margin-top: 50px;
+}
+
+.undecorated-link:hover {
+    text-decoration: none;
+}
+
+[ng\:cloak],
+[ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+    display: none !important;
+}
+
+.header-profile-image {
+    opacity: 0.8;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.open .header-profile-image,
+a:hover .header-profile-image {
+    opacity: 1;
+}
+
+.user-header-dropdown-toggle {
+    padding-top: 11px !important;
+    padding-bottom: 11px !important;
+}
+
+.error-text {
+    display: none;
+}
+
+.has-error .help-block.error-text {
+    display: block;
+}
+
+.has-error .help-inline.error-text {
+    display: inline;
+}
+
+.user-image {
+    max-width: 48px;
+}
+
+.dropdown-toggle-xs {
+    color: #2f4050;
+}
+
+.BG-main {
+    background-color: #f3f3f4;
+    /*border-color: #f3f3f4;*/
+}
+
+.textarea-view {
+    background-color: white !important;
+    border-color: white !important;
+}
+
+.margin-top {
+    margin-top: 16px !important;
+}
+
+.margin-left {
+    margin-left: 16px !important;
+}
+
+.margin-right {
+    margin-right: 16px !important;
+}
+
+.margin-bottom {
+    margin-bottom: 16px !important;
+}
+
+.margin-top-small {
+    margin-top: 4px !important;
+}
+
+.margin-left-small {
+    margin-left: 4px !important;
+}
+
+.margin-right-small {
+    margin-right: 4px !important;
+}
+
+.margin-bottom-small {
+    margin-bottom: 4px !important;
+}
+
+.mail-box-header {
+    background-color: #ffffff;
+    border: 0px !important;
+    border-bottom: 0;
+    padding: 30px 20px 20px 20px;
+}
+
+
+/*mobile*/
+
+@media screen and (max-width: 480px) {
+    .col-lg-12 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 4px;
+        padding-left: 4px;
+    }
+}
+
+.fa-spinner {
+    margin-right: 6px;
+}
+.menu-tog {
+    right: -10px;
+    position: absolute;
+     top: -34px; 
+    font-size: 20px;
+}

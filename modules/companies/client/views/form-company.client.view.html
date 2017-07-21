@@ -1,0 +1,274 @@
+<section ng-init="vm.init()">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9" ng-if="!vm.employeeprofile._id">
+            <br>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/companies/{{vm.company._id}}">ข้อมูลบริษัท {{vm.companyname}}</a>
+                </li>
+                <li>
+                    <strong>แก้ไขข้อมูล {{vm.companyname}}</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+        <form class="form-horizontal" name="vm.form.companyForm" ng-submit="vm.save(vm.form.companyForm.$valid)" novalidate>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">ข้อมูลบริษัท</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">รูปภาพ</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab-1">
+                                <div class="panel-body">
+                                    <fieldset class="form-horizontal">
+                                        <div class="form-group" show-errors>
+                                            <label class="col-sm-4 col-md-2 control-label">ชื่อบริษัท</label>
+                                            <div class="col-sm-8 col-md-10">
+                                                <input class="form-control" id="name" name="name" ng-model="vm.company.name" type="text" placeholder required>
+                                                <div ng-messages="vm.form.companyForm.name.$error" role="alert">
+                                                    <p class="help-block error-text" ng-message="required">กรุณากรอก ชื่อบริษัท</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">เลขประจำตัวผู้เสียภาษี</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="taxid" name="taxid" ng-model="vm.company.taxid" type="text" placeholder required>
+                                                        <div ng-messages="vm.form.companyForm.taxid.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณากรอกเลขประจำตัวผู้เสียภาษี</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">สาขา</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="brunch" name="brunch" ng-model="vm.company.brunch" type="text" placeholder>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group" show-errors>
+                                            <label class="col-sm-4 col-md-2 control-label">ที่อยู่</label>
+                                            <div class="col-sm-8 col-md-10">
+                                                <input class="form-control" id="address" name="address" ng-model="vm.company.address.address" type="text" placeholder required>
+                                                <div ng-messages="vm.form.companyForm.address.$error" role="alert">
+                                                    <p class="help-block error-text" ng-message="required">กรุณากรอกที่อยู่</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">รหัสไปร์ณีย์</label>
+                                                    <div class="col-sm-8">
+                                                        <!-- <input type="text" name="postcode" id="postcode" ng-model="vm.company.address.postcode" class="form-control" placeholder="" required> -->
+                                                        <input class="form-control" id="postcode" name="postcode" ng-change="checkAutocomplete(company.address.postcode)" ng-model="vm.company.address.postcode" type="text" autocomplete="true" typeahead="postcode" typeahead-callback="callback" placeholder required>
+                                                        <div ng-messages="vm.form.companyForm.postcode.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณากรอกรหัสไปร์ณีย์</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">เขต/อำเภอ</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="district" name="district" ng-model="vm.company.address.district" type="text" placeholder required>
+                                                        <div ng-messages="vm.form.companyForm.district.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณากรอก เขต/อำเภอ</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">แขวง/ตำบล</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="subdistrict" name="subdistrict" ng-model="vm.company.address.subdistrict" type="text" placeholder required>
+                                                        <div ng-messages="vm.form.companyForm.subdistrict.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณากรอก แขวง/ตำบล</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">จังหวัด</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="province" name="province" ng-model="vm.company.address.province" type="text" placeholder required>
+                                                        <div ng-messages="vm.form.companyForm.province.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณากรอกจังหวัด</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" show-errors>
+                                            <label class="col-sm-4 col-md-2 control-label">ประเทศ</label>
+                                            <div class="col-sm-8 col-md-10">
+                                                <select class="form-control m-b" id="country" name="country" ng-model="vm.company.address.country" ng-options="item as item.en.common for item in country track by item.cca2" required></select>
+                                                <!--<input type="text" id="country" name="country" class="form-control" autocomplete="false" typeahead-language="country" ng-model="vm.company.address.country.th" typeahead-callback="callbackLanguage" placeholder="" required>-->
+                                                <!--<input type="text" name="country" id="country" ng-model="vm.company.address.country" class="form-control" placeholder="" required>-->
+                                                <div ng-messages="vm.form.companyForm.country.$error" role="alert">
+                                                    <p class="help-block error-text" ng-message="required">กรุณาระบุประเทศ</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2 control-label">ละติจูด</label>
+                                            <div class="col-sm-8 col-md-10">
+                                                <input class="form-control" id="latitude" name="latitude" ng-model="vm.company.address.location.latitude" type="text" placeholder>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2 control-label">ลองจิจูด</label>
+                                            <div class="col-sm-8 col-md-10">
+                                                <input class="form-control" id="longitude" name="longitude" ng-model="vm.company.address.location.longitude" type="text" placeholder>
+                                                <div class="text-center text-danger">
+                                                    <strong> *สามารถดูได้จาก Google Map </strong>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div style="text-align:center">
+                                                        <button class="btn btn-info" type="button" ng-click="addBranch(vm.company.brunch,
+                                                        vm.company.address.address,
+                                                        vm.company.address.subdistrict,
+                                                        vm.company.address.district,
+                                                        vm.company.address.province,
+                                                        vm.company.address.postcode,
+                                                        vm.company.address.country.en.common,
+                                                        vm.company.address.location.latitude,
+                                                        vm.company.address.location.longitude
+                                                        )"><i class="fa fa-paste"></i> เพิ่มสาขา</button>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-lg-4" ng-repeat="brch in branchs">
+                                                            <div class="panel panel-info">
+                                                                <div class="panel-heading">
+                                                                    <i class="fa fa-info-circle"></i> สาขา {{brch.branch}} <span style="right:0;position: absolute;margin-right: 28px" ng-click="deleteBrunch(brch.branch)">X</span>
+                                                                </div>
+                                                                <div class="panel-body">
+                                                                    <p>{{brch.address}}</p>
+                                                                    <p>แขวง/ตำบล {{brch.subdistrict}} เขต/อำเภอ {{brch.district}} จังหวัด {{brch.province}} {{brch.postcode}} ประเทศ {{brch.country}}</p>
+                                                                    <p>ละติจูด {{brch.latitude}}</p>
+                                                                    <p>ลองจิจูด {{brch.longitude}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+                                        <hr>
+                                        <div class="form-group" show-errors>
+                                            <label class="col-sm-4 col-md-2 control-label">เบอร์โทรศัพท์(บริษัท)</label>
+                                            <div class="col-sm-8 col-md-10">
+                                                <input class="form-control" id="tel" name="tel" ng-model="vm.company.tel" type="text" placeholder required>
+                                                <div ng-messages="vm.form.companyForm.tel.$error" role="alert">
+                                                    <p class="help-block error-text" ng-message="required">กรุณากรอกเบอร์โทรศัพท์</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2 control-label">โทรสาร</label>
+                                            <div class="col-sm-8 col-md-10">
+                                                <input class="form-control" id="fax" name="fax" ng-model="vm.company.fax" type="text" placeholder>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2 control-label">E-mail</label>
+                                            <div class="col-sm-8 col-md-10">
+                                                <input class="form-control" id="email" name="email" ng-model="vm.company.email" type="email" placeholder="email@email.com">
+                                                <div role="alert">
+                                                    <span class="error" ng-show="vm.form.companyForm.email.$error.email" style="color:#a94442;">กรุณากรอกอีเมล์ที่ถูกต้อง</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2 control-label">เว็บไซต์</label>
+                                            <div class="col-sm-8 col-md-10">
+                                                <input class="form-control" id="website" name="website" ng-model="vm.company.website" type="text" placeholder="https://">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2 control-label">หมายเหตุ</label>
+                                            <div class="col-sm-8 col-md-10">
+                                                <textarea class="form-control" id="note" name="note" ng-model="vm.company.note" placeholder rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-4">
+                                            </div>
+                                            <div class="col-xs-12 col-md-4">
+                                                <div class="form-group">
+                                                    <button class="btn btn-primary btn-block ladda-button" id="form-submit" data-style="expand-left" ng-disabled="startCall" type="submit"><i class="fa fa-spinner fa-spin" ng-if="startCall"></i> {{vm.company._id ? 'บันทึกข้อมูล' : 'บันทึกข้อมูล'}}</button>
+                                                </div>
+                                                <div class="text-danger" ng-show="vm.error || vm.errorPrice">
+                                                    <strong ng-bind="vm.error"></strong>
+                                                    <strong ng-bind="vm.errorPrice"></strong>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-md-4">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab-2">
+                                <div class="panel-body">
+                                    <div class="lightBoxGallery">
+                                        <!--<div class="text-center text-danger" ng-show="vm.company.images.length > 0">
+                                            คลิกที่รูปภาพเพื่อทำการลบ
+                                        </div>-->
+                                        <br>
+                                        <!-- ng-click="vm.removeImage($index, image)" -->
+                                        <a class="margin-bottom" ng-repeat="image in vm.company.images">
+                                            <img class="image-add margin-bottom" src="{{image.url}}">
+                                        </a>
+                                        <br>
+                                        <br>
+                                        <span class="btn btn-default btn-file">
+                                            เลือกรูปภาพ
+                                            <input type="file" nv-file-select uploader="uploader">
+                                        </span>
+                                    </div>
+                                    <br>
+                                    <div ng-show="uploader.queue.length">
+                                        <div class="text-center form-group">
+                                            <button class="btn btn-primary" ng-click="uploadProfilePicture(); status = true" type="button">อัพโหลด</button> &nbsp;
+                                            <button class="btn btn-warning" ng-click="cancelUpload();" type="button">ยกเลิก</button>
+                                        </div>
+                                    </div>
+                                    <div class="text-center text-success" ng-show="status">
+                                        <span class="loading bullseye spinner-image"></span>
+                                    </div>
+                                    <div class="text-center text-success" ng-show="success">
+                                        <strong>อัพโหลดรูปภาพสำเร็จ</strong>
+                                    </div>
+                                    <div class="text-center text-danger" ng-show="error">
+                                        <strong ng-bind="error"></strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

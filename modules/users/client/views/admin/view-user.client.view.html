@@ -1,0 +1,55 @@
+<section>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox">
+            <div class="ibox-content">
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="pull-right">
+                                <a class="btn btn-primary" ui-sref="admin.user-edit({userId: user._id})">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                                <a class="btn btn-primary" ng-click="remove();" ng-if="user._id !== authentication.user._id">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="text-center p-lg">
+                                <div class="lightBoxGallery">
+                                    <img class="margin-bottom" ng-src="{{user.profileImageURL}}" width="160px;">
+                                </div>
+                                <h2>{{user.displayName}} </h2> ({{user.roles[0]}})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3 text-right"><strong>ชื่อ</strong></div>
+                            <div class="col-md-9" ng-bind="user.firstName"></div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-3 text-right"><strong>นามสกุล</strong></div>
+                            <div class="col-md-9" ng-bind="user.lastName"></div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-3 text-right"><strong>อีเมล์</strong></div>
+                            <div class="col-md-9" ng-bind="user.email"></div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-3 text-right"><strong>เบอร์โทรศัพท์</strong></div>
+                            <div class="col-md-9" ng-bind="user.tel"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

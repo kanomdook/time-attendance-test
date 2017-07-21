@@ -1,0 +1,39 @@
+<section>
+  <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <br>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/employeeprofiles">ข้อมูลทั้งหมด</a>
+                </li>
+                <li>
+                    <strong>ข้อมูล {{vm.checkin.user.displayName}}</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+  <div class="page-header">
+    <h1 ng-bind="vm.checkin.name"></h1>
+  </div>
+  <div class="pull-right"
+       ng-show="vm.checkin.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       ui-sref="checkins.edit({ checkinId: vm.checkin._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.checkin.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.checkin.user"
+            ng-bind="vm.checkin.user.displayName"></span>
+      <span ng-if="!vm.checkin.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.checkin.content"></p>
+</section>

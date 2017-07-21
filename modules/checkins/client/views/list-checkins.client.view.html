@@ -1,0 +1,81 @@
+<section>
+  <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <br>
+            <ol class="breadcrumb">
+                <li>
+                    <strong>ข้อมูลเวลาเข้า - ออกงาน<strong> 
+                </li>
+            </ol>
+        </div>
+    </div>
+  <!--<div class="list-group">
+    <a ng-repeat="checkin in vm.checkins"
+       ui-sref="checkins.view({ checkinId: checkin._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="checkin.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="checkin.user" ng-bind="checkin.user.displayName"></span>
+        <span ng-if="!checkin.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="checkin.name"></h4>
+      
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.checkins.$resolved && !vm.checkins.length">
+    No Checkins yet, why don't you <a ui-sref="checkins.create">create one</a>?
+  </div>-->
+  <div class="ibox float-e-margins">
+    <div class="ibox-content" style="margin-top: 48px">
+
+      <div id="DataTables_Table_2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="dataTables_length" id="DataTables_Table_2_length"><label>แสดง <select name="DataTables_Table_2_length" aria-controls="DataTables_Table_2" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> รายการ</label></div>
+        <div
+          id="DataTables_Table_2_filter" class="dataTables_filter" style="text-align:right"><label>ค้นหา:<input type="search" class="form-control input-sm"  aria-controls="DataTables_Table_2"></label></div>
+      <div
+        class="dataTables_info" id="DataTables_Table_2_info" role="status" aria-live="polite">แสดง 1 ถึง 10 จาก 57 รายการ</div>
+    <table datatable="" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example ng-isolate-scope dataTable"
+      id="DataTables_Table_2" aria-describedby="DataTables_Table_2_info" role="grid">
+      <thead>
+        <tr role="row">
+          <th class="sorting" rowspan="1" colspan="1" style="text-align: center">ชื่อ - นามสกุล</th>
+          <th class="sorting" rowspan="1" colspan="1" style="text-align: center">อีเมล</th>
+          <th class="sorting" rowspan="1" colspan="1" style="text-align: center">เวลาเข้างาน</th>
+          <th class="sorting" rowspan="1" colspan="1" style="text-align: center">สถานที่เข้างาน</th>
+          <th class="sorting" rowspan="1" colspan="1" style="text-align: center">เวลาออกงาน</th>
+          <th class="sorting" rowspan="1" colspan="1" style="text-align: center">สถานที่ออกงาน</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="gradeA odd" role="row" ng-repeat="checkin in vm.checkins">
+          <td ui-sref="checkins.edit({ checkinId: checkin._id })">{{checkin.user.employeeprofile.firstname}} {{checkin.user.employeeprofile.lastname}}</td>
+          <td>{{checkin.email}}</td>
+          <td>{{checkin.dateTimeIn | date:'medium'}}</td>
+          <td>{{checkin.locationIn}}</td>
+          <td>{{checkin.dateTimeOut | date:'medium'}}</td>
+          <td>{{checkin.locationOut}}</td>
+
+          <!--<td ng-if="vm.checkins.length < 0">ไม่มีข้อมูล</td>          -->
+        </tr>
+      </tbody>
+    </table>
+    <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_2_paginate" style="text-align: right">
+      <ul class="pagination">
+        <li class="paginate_button previous disabled" id="DataTables_Table_2_previous"><a href="#" aria-controls="DataTables_Table_2" data-dt-idx="0" tabindex="0">ย้อนกลับ</a></li>
+        <li class="paginate_button active"><a href="#" aria-controls="DataTables_Table_2" data-dt-idx="1" tabindex="0">1</a></li>
+        <li class="paginate_button "><a href="#" aria-controls="DataTables_Table_2" data-dt-idx="2" tabindex="0">2</a></li>
+        <li class="paginate_button "><a href="#" aria-controls="DataTables_Table_2" data-dt-idx="3" tabindex="0">3</a></li>
+        <li class="paginate_button "><a href="#" aria-controls="DataTables_Table_2" data-dt-idx="4" tabindex="0">4</a></li>
+        <li class="paginate_button "><a href="#" aria-controls="DataTables_Table_2" data-dt-idx="5" tabindex="0">5</a></li>
+        <li class="paginate_button next"
+          id="DataTables_Table_2_next"><a href="#" aria-controls="DataTables_Table_2" data-dt-idx="7" tabindex="0">ถัดไป</a></li>
+      </ul>
+    </div>
+  </div>
+
+  </div>
+  </div>
+
+</section>

@@ -1,0 +1,55 @@
+<nav class="navbar-default navbar-static-side" data-ng-controller="HeaderController" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu" side-navigation>
+            <li class="nav-header">
+                <!-- Picture of user -->
+                <div class="dropdown profile-element">
+                    <div ng-if="authentication.user">
+                        <img class="img-circle user-image" ng-src="{{authentication.user.profileImageURL}}" alt="image">
+                        <span class="menu-tog  show-xs hidden-sm hidden-md hidden-lg" minimaliza-sidebar></span>
+                        <!--<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="" ng-click="toggleCollapsibleMenu()"><i class="fa fa-bars"></i></a>-->
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{authentication.user.displayName}}</strong></span>
+                            <span class="text-muted text-xs block">{{authentication.user.roles[0]}}</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="dropdown logo-element" ng-show="authentication.user">
+                    <div ng-show="authentication.user">
+                        <img class="img-circle user-image" data-toggle="dropdown" ng-src="{{authentication.user.profileImageURL}}" href="#" alt="image" aria-expanded="true">
+                    </div>
+                </div>
+            </li>
+            <!-- <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user" ui-route="/">
+                <a href="/"><i class="fa fa-home"></i> <span class="nav-label">หน้าหลัก</span></a>
+            </li> -->
+            <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user" ui-route="/companies/{{authentication.user.company}}">
+                <a href="/companies/{{authentication.user.company}}"><i class="fa fa-building"></i> <span class="nav-label">ข้อมูลบริษัท</span></a>
+            </li>
+            <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user" ui-route="/employeeprofiles">
+                <a href="/employeeprofiles"><i class="fa fa-users"></i> <span class="nav-label">ข้อมูลพนักงาน</span></a>
+            </li>
+            <!--<li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user" ui-route="/checkins">
+                <a href="/checkins"><i class="fa fa-clock-o"></i> <span class="nav-label">ข้อมูลเวลา</span></a>
+            </li>-->
+            <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user" ui-route="/leaves">
+                <a href="/leaves"><i class="fa fa-book"></i> <span class="nav-label">ข้อมูลการลา</span></a>
+            </li>
+            <li ng-show="authentication.user">
+                <a><i class="fa fa-clock-o"></i> <span class="nav-label">ข้อมูลการลงชื่อ</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li ng-class="{active: $uiRoute}" ui-route="/reportdailies"><a href="/reportdailies">รายวัน</a></li>
+                    <li ng-class="{active: $uiRoute}" ui-route="/reportmonthlies"><a href="/reportmonthlies">รายเดือน</a></li>
+                    <li ng-class="{active: $uiRoute}" ui-route="/reportsummarymonthlies"><a href="/reportsummarymonthlies">รายเดือน(สรุป)</a></li>
+                </ul>
+            </li>
+            <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="!authentication.user" ui-route="/">
+                <a href="/"><i class="fa fa-lock"></i> <span class="nav-label">ลงชื่อเข้าใช้</span></a>
+            </li>
+            <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user" ui-route="/settings/signout">
+                <a href="/api/auth/signout" target="_self"><i class="fa fa-sign-out"></i> <span class="nav-label">ออกจากระบบ</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>

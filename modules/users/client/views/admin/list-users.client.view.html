@@ -1,0 +1,55 @@
+<section>
+    <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <input class="form-control col-md-4" type="text" ng-model="search" placeholder="ค้นหา" ng-change="figureOutItemsToDisplay()" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <br>
+                                <div class="tabs-container">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#tab-1" ng-click="searchTeb = 'user'" aria-expanded="true">User</a></li>
+                                        <li class=""><a data-toggle="tab" href="#tab-2" ng-click="searchTeb = 'admin'" aria-expanded="false">Admin</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="tab-1" class="tab-pane active">
+                                            <div class="panel-body">
+                                                <ul class="sortable-list connectList agile-list ui-sortable" id="todo">
+                                                    <li class="success-element ui-sortable-handle" id="task2" ng-repeat="user in pagedItems | filter: { roles : searchTeb}" ui-sref="admin.user({userId: user._id})">
+                                                        <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
+                                                        ( {{user.displayName}} )
+                                                        <p class="label status-roles label-primary pull-right">{{ user.roles[0] | uppercase }}</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div id="tab-2" class="tab-pane">
+                                            <div class="panel-body">
+                                                <ul class="sortable-list connectList agile-list ui-sortable" id="todo">
+                                                    <li class="danger-element ui-sortable-handle" id="task2" ng-repeat="user in pagedItems | filter: { roles : searchTeb}" ui-sref="admin.user({userId: user._id})">
+                                                        <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
+                                                        ( {{user.displayName}} )
+                                                        <p class="label status-roles label-danger pull-right">{{ user.roles[0] | uppercase }}</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+</section>

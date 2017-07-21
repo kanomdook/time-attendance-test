@@ -1,0 +1,31 @@
+<div class="ibox" ng-controller="AuthenticationController">
+    <div class="ibox-content">
+        <div class="row">
+            <div class="middle-box text-center loginscreen animated fadeInRight login-box">
+                <div>
+<!--                     <div>
+                        <h1 class="logo-name">MBJ</h1>
+                    </div> -->
+                    <h3>ลงชื่อเข้าใช้</h3>
+                    <form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="ชื่อผู้ใช้" ng-model="credentials.username" required="">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="รหัสผ่าน" ng-model="credentials.password" required="">
+                        </div>
+                        <button type="submit" class="btn btn-primary block full-width m-b" ng-disabled="!credentials.username || !credentials.password || startCall"><i class="fa fa-spinner fa-spin" ng-if="startCall"></i> ลงชื่อเข้าใช้</button>
+                        <alert type="danger" ng-show="error" class="text-center text-danger">
+                            <span ng-bind="error"></span>
+                        </alert>
+                        <br>
+                        <a href="#"><small>ลืมรหัสผ่าน?</small></a>
+                        <p class="text-muted text-center"><small>คุณต้องการสมัครสมาชิก?</small></p>
+                        <a class="btn btn-sm btn-white btn-block" ui-sref="authentication.signup">ลงทะเบียน</a>
+                    </form>
+                    <!--<p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 © 2014</small> </p>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

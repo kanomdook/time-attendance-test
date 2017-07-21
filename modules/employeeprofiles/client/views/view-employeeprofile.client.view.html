@@ -1,0 +1,155 @@
+<section ng-init="vm.initView()">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <br>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/employeeprofiles">รายชื่อทั้งหมด</a>
+                </li>
+                <li>
+                    <strong>ข้อมูล {{vm.employeeprofile.firstname}} {{vm.employeeprofile.lastname}}</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="pull-right" ng-show="vm.employeeprofile.isCurrentUserOwner">
+            <a class="btn btn-primary" ui-sref="employeeprofiles.edit({ employeeprofileId: vm.employeeprofile._id })">
+                <i class="glyphicon glyphicon-edit"></i>
+            </a>
+            <a class="btn btn-primary" ng-click="vm.remove()">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a>
+        </div>
+        <div class="row m-b-lg m-t-lg">
+            <div class="col-md-6">
+                <div class="profile-image">
+                    <img class="img-circle circle-border m-b-md" ng-src="{{vm.employeeprofile.image}}" alt="รูปภาพ">
+                </div>
+                <div class="profile-info">
+                    <div class="">
+                        <div>
+                            <h2 class="no-margins">
+                                    {{vm.employeeprofile.firstname}} {{vm.employeeprofile.lastname}}
+                                </h2>
+                            <h4>({{vm.employeeprofile.employeeid}})</h4>
+                                
+                            <h4>{{vm.employeeprofile.jobTitle}}</h4>
+                            <small>
+                                    {{vm.employeeprofile.company.name}}
+                                </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <table class="table small m-b-xs">
+                    <tbody>
+                        <tr>
+                            <td>
+                                จำนวนวันทำงานทั้งหมด <strong>{{vm.checkins.length}}</strong>
+                            </td>
+                            <td>
+                                จำนวนวันทำงานภายในเดือน <strong>{{vm.checkins.length}}</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                จำนวนวันที่ลาทั้งหมด <strong>{{vm.leaves.length}}</strong>
+                            </td>
+                            <td>
+                                จำนวนวันที่ลาภายในเดือน <strong>{{vm.leaves.length}}</strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 m-b-lg">
+                    <div class="vertical-container light-timeline no-margins" id="vertical-timeline">
+                        <div class="vertical-timeline-block">
+                            <div class="vertical-timeline-icon yellow-bg">
+                                <i class="fa fa-home"></i>
+                            </div>
+                            <div class="vertical-timeline-content">
+                                <h2>ข้อมูลติดต่อ</h2>
+                                <p>
+                                    <i class="fa fa-map-marker"></i> &nbsp;&nbsp; {{vm.employeeprofile.address.address}} {{vm.employeeprofile.address.district}} {{vm.employeeprofile.address.subdistrict}} {{vm.employeeprofile.address.postcode}} {{vm.employeeprofile.address.province}} {{vm.employeeprofile.address.country.en.common}}
+                                </p>
+                                <p>
+                                    <i class="fa fa-phone"></i> &nbsp;&nbsp; เบอร์โทร : {{vm.employeeprofile.mobile}}
+                                </p>
+                                <p>
+                                    <i class="fa fa-envelope"></i> &nbsp;&nbsp; อีเมล์ : {{vm.employeeprofile.email}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="vertical-timeline-block">
+                            <div class="vertical-timeline-icon navy-bg">
+                                <i class="fa fa-briefcase"></i>
+                            </div>
+                            <div class="vertical-timeline-content">
+                                <h2>ข้อมูลการทำงานภายในเดือน</h2>
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr ng-repeat="check in vm.checkins">
+                                            <td>
+                                                {{check.dateTimeIn | date:'dd MMMM yyyy'}}
+                                            </td>
+                                            <td>
+                                                <i class="fa fa-circle text-navy"></i> {{check.dateTimeIn | date:'HH:mm'}}
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <i class="fa fa-circle text-danger" ng-if="check.dateTimeOut"></i> {{check.dateTimeOut | date:'HH:mm'}}
+                                            </td>
+                                            <td>
+                                                <i class="fa fa-check text-navy" ng-if="check.dateTimeOut"></i>
+                                                <i class="fa fa-times text-danger" ng-if="!check.dateTimeOut"></i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="vertical-timeline-block">
+                                <div class="vertical-timeline-icon blue-bg">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+                                <div class="vertical-timeline-content">
+                                    <h2>ข้อมูลการลาภายในเดือน</h2>
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr ng-repeat="leave in vm.leaves | filter:{ leaveStatus: '!Draft'}| filter:{ leaveStatus: '!Reject'} | orderBy:'leaveEndDateTime'">
+                                                    <td>
+                                                        <i class="fa fa-play-circle text-navy"></i> {{leave.leaveStartDateTime | date:'dd MMMM yyyy'}}
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-stop-circle text-danger"></i> {{leave.leaveEndDateTime | date:'dd MMMM yyyy'}}
+                                                    </td>
+                                                    <td>
+                                                       <i class="fa fa-clock-o"></i> <span ng-if="!leave.leaveHalf">{{leave.leaveDay}} วัน</span><span ng-if="leave.leaveHalf">{{leave.leaveTime}} ชม.</span>
+                                                    </td>
+                                                    <td>
+                                                       {{leave.leaveDetail}}
+                                                    </td>
+                                                    <td class="no-borders" ng-if="leave.approveStatus != 'Waiting'">
+                                                        <i class="fa fa-check text-navy" ng-if="leave.approveStatus == 'Approve'"> Approve</i>
+                                                        <i class="fa fa-close text-danger" ng-if="leave.approveStatus == 'Reject'"> Reject</i>
+                                                    </td>
+                                                    <td ng-if="leave.approveStatus == 'Waiting'">
+                                                        <button class="btn btn-xs btn-primary" ng-click="vm.updateLeace(leave,'Approve')">Approve</button>
+                                                        <button class="btn btn-xs btn-danger" ng-click="vm.updateLeace(leave,'Reject')">Reject</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="lead" ng-bind="vm.employeeprofile.content"></p>
+</div></section>

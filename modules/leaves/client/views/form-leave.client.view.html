@@ -1,0 +1,98 @@
+<section ng-init="initViewCard()">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-lg-4"></div>
+      <div class="col-lg-4">
+        <div class="widget-head-color-box navy-bg p-lg text-center">
+          <div class="m-b-md">
+            <h2 class="font-bold no-margins">
+              {{vm.employeeprofile.firstname}} {{vm.employeeprofile.lastname}}
+            </h2>
+            <small>{{vm.leave.email}}</small>
+          </div>
+          <img src="{{vm.employeeprofile.image}}" class="img-circle circle-border m-b-md" alt="profile" width="164px" height="164px">
+          <div>
+            <span>{{vm.leave.leaveStartDateTime | date:'fullDate'}}</span> -
+            <span>{{vm.leave.leaveEndDateTime | date:'fullDate'}}</span> 
+          </div>
+        </div>
+        <div class="widget-text-box">
+          <h4 class="media-heading">{{vm.leave.leaveType}}</h4>
+          <p>{{vm.leave.leaveDetail}}</p>
+          <div class="text-right" ng-show="vm.leave.approveStatus=='Waiting'">
+            <button class="btn btn-xs btn-primary" ng-click="vm.approve(vm.leave._id)"><i class="fa fa-heart"></i> Approve</button>            
+            <button class="btn btn-xs btn-danger" ng-click="vm.reject(vm.leave._id)"><i class="fa fa-thumbs-up"></i> Reject </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4"></div>      
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+<!--<section>
+  <div class="page-header">
+    <h1>{{vm.leave._id ? 'Edit Leave' : 'New Leave'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.leaveForm" class="form-horizontal" ng-submit="vm.save(vm.form.leaveForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="email">Email</label>
+          <input name="email" type="text" ng-model="vm.leave.email" id="email" class="form-control" placeholder="Email" required>
+          <div ng-messages="vm.form.leaveForm.email.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Email is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="leaveType">leaveType</label>
+          <input name="leaveType" type="text" ng-model="vm.leave.leaveType" id="leaveType" class="form-control" placeholder="leaveType">
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="leaveDetail">leaveDetail</label>
+          <input name="leaveDetail" type="text" ng-model="vm.leave.leaveDetail" id="leaveDetail" class="form-control" placeholder="leaveDetail">
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="leaveStartDateTime">leaveStartDateTime</label>
+          <input name="leaveStartDateTime" type="text" ng-model="vm.leave.leaveStartDateTime" id="leaveStartDateTime" class="form-control" placeholder="leaveStartDateTime">
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="leaveEndDateTime">leaveEndDateTime</label>
+          <input name="leaveEndDateTime" type="text" ng-model="vm.leave.leaveEndDateTime" id="leaveEndDateTime" class="form-control" placeholder="leaveEndDateTime">
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="leaveHalf">leaveHalf</label>
+          <input name="leaveHalf" type="text" ng-model="vm.leave.leaveHalf" id="leaveHalf" class="form-control" placeholder="leaveHalf">
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="leaveTime">leaveTime</label>
+          <input name="leaveTime" type="text" ng-model="vm.leave.leaveTime" id="leaveTime" class="form-control" placeholder="leaveTime">
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="approveStatus">approveStatus</label>
+          <input name="approveStatus" type="text" ng-model="vm.leave.approveStatus" id="approveStatus" class="form-control" placeholder="approveStatus">
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.leave._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>-->

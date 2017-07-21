@@ -1,0 +1,81 @@
+<section>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <br>
+            <ol class="breadcrumb">
+                <li>
+                    <strong>รายงานการมาทำงานของพนักงาน (รายวัน)<strong> 
+                </strong></strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <br>
+    <div class="animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-4 col-md-3">
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <div class="form-group">
+                    <input class="form-control" id="search" name="search" ng-model="vm.reportDate" type="date" placeholder="ค้นหา">
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3">
+                <div class="form-group">
+                    <a class="btn btn-primary btn-block" ng-click="vm.searchReport(vm.reportDate)">ค้นหา</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center"  ng-if="vm.startCall">
+        <p>ไม่มีข้อมูลรายงาน</p>
+    </div> 
+    <div class="" ng-if="vm.reportData.data.length > 0">
+        <div class="contact-box table-responsive">
+            <table class="table table-striped table-bordered table-hover dataTables-example ng-isolate-scope dataTable" id="DataTables_Table_2" role="grid" aria-describedby="DataTables_Table_2_info" datatable dt-options="dtOptions">
+                <thead>
+                    <tr role="row">
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">ลำดับ</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">รหัสพนักงาน</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">ชื่อ</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">นามสกุล</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">เวลาเข้า</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">เวลาออก</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">ประเภท</th>
+                        <!-- <th class="sorting" rowspan="1" colspan="1" style="text-align: center">เครื่องแสกน</th> -->
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">ระยะห่างเข้า(ก.ม)</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">ระยะห่างออก(ก.ม)</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">สาย(ชม.นาที)</th>
+                        <th class="sorting" rowspan="1" colspan="1" style="text-align: center">ชั่วโมงทำงาน</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="gradeA" role="row" ng-repeat="item in vm.reportData.data">
+                        <td class="text-right">{{$index + 1}}</td>
+                        <td class="text-center">{{item.employeeid}}</td>
+                        <td>{{item.firstName}}</td>
+                        <td>{{item.lastName}}</td>
+                        <td class="text-center">{{item.datetimein | date :'HH:mm:ss'}}</td>
+                        <td class="text-center">{{item.datetimeout| date :'HH:mm:ss'}}</td>
+                        <td class="text-center">{{item.type}}</td>
+                        <!-- <td class="text-center">{{item.device}}</td> -->
+                        <td class="text-center">{{item.distance}}</td>
+                        <td class="text-center">{{item.distanceout}}</td>                        
+                        <td class="text-center">{{item.timelate}}</td>
+                        <td class="text-center">{{item.workinghours}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-right">
+                <div class="row">
+                    <div class="col col-md-4"></div>
+                    <div class="col col-md-4"></div>
+                    <div class="col col-md-4">
+                        <!--  ng-click="vm.exportReport(vm.reportDate)" -->
+                        <a class="btn btn-default btn-block" href="/api/reportdaily/export/excel/:{{vm.reportData.date}}" target="_self">Export</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,318 @@
+<section ng-init="vm.init()">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9" ng-if="!vm.employeeprofile._id">
+            <br>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/employeeprofiles">รายชื่อทั้งหมด</a>
+                </li>
+                <li>
+                    <strong>เพิ่มพนักงานใหม่</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-9" ng-if="vm.employeeprofile._id">
+            <br>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/employeeprofiles">รายชื่อทั้งหมด</a>
+                </li>
+                <li>
+                    <a ui-sref="employeeprofiles.view({ employeeprofileId: vm.employeeprofile._id })">ข้อมูล {{vm.employeeprofile.firstname}} {{vm.employeeprofile.lastname}}</a>
+                </li>
+                <li>
+                    <strong>แก้ไข ข้อมูล {{vm.employeeprofile.firstname}} {{vm.employeeprofile.lastname}}</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+        <form class="form-horizontal" name="vm.form.employeeprofileForm" ng-submit="vm.save(vm.form.employeeprofileForm.$valid)"
+            novalidate>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">ข้อมูลพนักงาน</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">ข้อมูลอื่นๆ</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">รูปภาพ</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab-1">
+                                <div class="panel-body">
+                                    <fieldset class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">ชื่อ</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="firstname" name="firstname" ng-model="vm.employeeprofile.firstname" type="text" placeholder
+                                                            required>
+                                                        <div ng-messages="vm.form.employeeprofileForm.firstname.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณากรอกชื่อ</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">นามสกุล</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="lastname" name="lastname" ng-model="vm.employeeprofile.lastname" type="text" placeholder
+                                                            required>
+                                                        <div ng-messages="vm.form.employeeprofileForm.lastname.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณากรอกนามสกุล</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">รหัสพนักงาน</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="employeeid" name="employeeid" ng-model="vm.employeeprofile.employeeid" type="text" placeholder
+                                                            required>
+                                                        <div ng-messages="vm.form.employeeprofileForm.employeeid.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณาระบุรหัสพนักงาน</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">ตำแหน่ง</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="jobTitle" name="jobTitle" ng-model="vm.employeeprofile.jobTitle" type="text" placeholder
+                                                            required>
+                                                        <div ng-messages="vm.form.employeeprofileForm.jobTitle.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณาระบุตำแหน่ง</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">สาขา</label>
+                                                    <div class="col-sm-8">
+                                                        
+                                                        <select class="form-control" id="branch" name="branch" required ng-model="vm.employeeprofile.branch" ng-change="selectBranch()">
+                                                             <option ng-repeat="bch in vm.branchs"
+                                                                value="{{bch.branch}}">
+                                                                {{bch.branch}}
+                                                                </option>
+                                                        </select>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">เวลาเข้างาน</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="shiftin" name="shiftin" ng-model="vm.employeeprofile.shiftin" type="time" placeholder required>
+                                                        <div ng-messages="vm.form.employeeprofileForm.shiftin.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณาระบุเวลาเข้างาน</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">เวลาออกงาน</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="shiftout" name="shiftout" ng-model="vm.employeeprofile.shiftout" type="time" placeholder
+                                                            required>
+                                                        <div ng-messages="vm.form.employeeprofileForm.shiftout.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณาระบุเวลาออกงาน</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group" show-errors>
+                                            <label class="col-sm-4 col-md-2 control-label">ที่อยู่</label>
+                                            <div class="col-sm-8 col-md-10">
+                                                <input class="form-control" id="address" name="address" ng-model="vm.employeeprofile.address.address" type="text" placeholder
+                                                    required>
+                                                <div ng-messages="vm.form.employeeprofileForm.address.$error" role="alert">
+                                                    <p class="help-block error-text" ng-message="required">กรุณากรอกที่อยู่</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">รหัสไปร์ณีย์</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="postcode" name="postcode" ng-change="checkAutocomplete(employeeprofile.address.postcode)"
+                                                            ng-model="vm.employeeprofile.address.postcode" type="text" autocomplete="true"
+                                                            typeahead="postcode" typeahead-callback="callback" placeholder required>
+                                                        <div ng-messages="vm.form.employeeprofileForm.postcode.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณากรอกรหัสไปร์ณีย์</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">เขต/อำเภอ</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="district" name="district" ng-model="vm.employeeprofile.address.district" type="text" placeholder
+                                                            required>
+                                                        <div ng-messages="vm.form.employeeprofileForm.district.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณากรอก เขต/อำเภอ</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">แขวง/ตำบล</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="subdistrict" name="subdistrict" ng-model="vm.employeeprofile.address.subdistrict" type="text"
+                                                            placeholder required>
+                                                        <div ng-messages="vm.form.employeeprofileForm.subdistrict.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณากรอก แขวง/ตำบล</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group" show-errors>
+                                                    <label class="col-sm-4 control-label">จังหวัด</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="province" name="province" ng-model="vm.employeeprofile.address.province" type="text" placeholder
+                                                            required>
+                                                        <div ng-messages="vm.form.employeeprofileForm.province.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">กรุณากรอกจังหวัด</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" show-errors>
+                                            <label class="col-sm-4 col-md-2 control-label">ประเทศ</label>
+                                            <div class="col-sm-8 col-md-10">
+                                                <select class="form-control m-b" id="country" name="country" ng-model="vm.employeeprofile.address.country" ng-options="item as item.en.common for item in country track by item.cca2"
+                                                    required></select>
+                                                <div ng-messages="vm.form.employeeprofileForm.country.$error" role="alert">
+                                                    <p class="help-block error-text" ng-message="required">กรุณาระบุประเทศ</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group" show-errors>
+                                            <label class="col-sm-4 col-md-2 control-label">เบอร์โทรศัพท์</label>
+                                            <div class="col-sm-8 col-md-10">
+                                                <input class="form-control" id="mobile" name="mobile" ng-model="vm.employeeprofile.mobile" type="text" placeholder required>
+                                                <div ng-messages="vm.form.employeeprofileForm.mobile.$error" role="alert">
+                                                    <p class="help-block error-text" ng-message="required">กรุณาระบบเบอร์โทรศัพท์</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2 control-label">E-mail</label>
+                                            <div class="col-sm-8 col-md-10">
+                                                <input class="form-control" id="email" name="email" ng-model="vm.employeeprofile.email" type="email" placeholder="email@email.com">
+                                                <div role="alert">
+                                                    <span class="error" ng-show="vm.form.employeeprofileForm.email.$error.email" style="color:#a94442;">กรุณากรอกอีเมล์ที่ถูกต้อง</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-4">
+                                            </div>
+                                            <div class="col-xs-12 col-md-4">
+                                                <div class="form-group">
+                                                    <button class="btn btn-primary btn-block ladda-button" id="form-submit" data-style="expand-left" ng-disabled="startCall"
+                                                        type="submit"><i class="fa fa-spinner fa-spin" ng-if="startCall"></i> {{vm.employeeprofile._id ? 'บันทึกข้อมูล' : 'บันทึกข้อมูล'}}</button>
+                                                </div>
+                                                <div class="text-danger" ng-show="vm.error || vm.errorPrice">
+                                                    <strong ng-bind="vm.error"></strong>
+                                                    <strong ng-bind="vm.errorPrice"></strong>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-md-4">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div id="tab-2" class="tab-pane">
+                                <div class="panel-body">
+                                    <fieldset class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="col-sm-2">
+                                            </div>
+                                            <label class="col-sm-2 control-label">Facebook</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" name="facebook" id="facebook" ng-model="vm.employeeprofile.facebook" class="form-control" placeholder="">
+                                            </div>
+                                            <div class="col-sm-4">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2">
+                                            </div>
+                                            <label class="col-sm-2 control-label">Line</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" name="line" id="line" ng-model="vm.employeeprofile.line" class="form-control" placeholder="">
+                                            </div>
+                                            <div class="col-sm-4">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab-3">
+                                <div class="panel-body">
+                                    <div class="lightBoxGallery">
+                                        <!--<div class="text-center text-danger" ng-show="vm.employeeprofile.images.length > 0">
+                                            คลิกที่รูปภาพเพื่อทำการลบ
+                                        </div>-->
+                                        <br>
+                                        <!-- ng-click="vm.removeImage($index, image)" -->
+                                        <a class="margin-bottom">
+                                            <img class="image-add margin-bottom" src="{{vm.employeeprofile.image}}">
+                                        </a>
+                                        <br>
+                                        <br>
+                                        <span class="btn btn-default btn-file">
+                                            เลือกรูปภาพ
+                                            <input type="file" nv-file-select uploader="uploader">
+                                        </span>
+                                    </div>
+                                    <br>
+                                    <div ng-show="uploader.queue.length">
+                                        <div class="text-center form-group">
+                                            <button class="btn btn-primary" ng-click="uploadProfilePicture(); status = true" type="button">อัพโหลด</button>                                            &nbsp;
+                                            <button class="btn btn-warning" ng-click="cancelUpload();" type="button">ยกเลิก</button>
+                                        </div>
+                                    </div>
+                                    <div class="text-center text-success" ng-show="status">
+                                        <span class="loading bullseye spinner-image"></span>
+                                    </div>
+                                    <div class="text-center text-success" ng-show="success">
+                                        <strong>อัพโหลดรูปภาพสำเร็จ</strong>
+                                    </div>
+                                    <div class="text-center text-danger" ng-show="error">
+                                        <strong ng-bind="error"></strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

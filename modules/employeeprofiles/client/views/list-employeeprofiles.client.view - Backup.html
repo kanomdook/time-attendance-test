@@ -1,0 +1,94 @@
+<section>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <br>
+            <ol class="breadcrumb">
+                <li>
+                    <strong>รายชื่อทั้งหมด<strong> 
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row wrapper white-bg" ng-if="vm.employeeprofiles.length">
+            <br>
+                <div class="row">
+                    <div class="col-sm-8 col-md-10">
+                        <div class="form-group">
+                            <input class="form-control" id="search" name="search" ng-model="vm.search" type="text" placeholder="ค้นหา">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <a class="btn btn-primary btn-block" ui-sref="employeeprofiles.create">
+                                    เพิ่มพนักงานใหม่
+                                </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ibox">
+                        <div class="ibox-title">
+                            <span class="pull-right">(<strong>{{vm.employeeprofiles.length}}</strong>)
+                    คน
+                    </span>
+                    <h5>พนักงานทั้งหมด</h5>
+        </div>
+
+        <div class="ibox-content" ng-repeat="employeeprofile in vm.employeeprofiles | filter : vm.search">
+            <div class="table-responsive">
+                <table class="table shoping-cart-table">
+
+                    <tbody>
+                        <tr>
+                            <td width="120">
+
+                                <img ng-src="{{employeeprofile.image}}" alt="profile image" width="82px" height="82px">
+
+                            </td>
+                            <td class="desc">
+                                <h3 ui-sref="employeeprofiles.view({ employeeprofileId: employeeprofile._id })">
+                                    <a href="#" class="text-navy">
+                                                    {{employeeprofile.firstname}} {{employeeprofile.lastname}}
+                                                </a>
+                                </h3>
+                                <p>
+                                    {{employeeprofile.jobTitle}}
+                                </p>
+                                <p>{{employeeprofile.address.address}} {{employeeprofile.address.district}} {{employeeprofile.address.subdistrict}}
+                                    {{employeeprofile.address.province}} {{employeeprofile.address.postcode}}</p>
+                                <dl>
+                                    <dt>{{employeeprofile.email}}</dt>
+                                    <dd>{{employeeprofile.mobile}}</dd>
+                                </dl>
+                            </td>
+
+                            <td>
+                                <!-- $50,00
+                                            <s class="small text-muted">$63,00</s> -->
+                            </td>
+                            <td width="65">
+                                <!-- <input type="text" class="form-control" placeholder="2"> -->
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" ui-sref="employeeprofiles.edit({ employeeprofileId: employeeprofile._id })">
+                <i class="glyphicon glyphicon-edit"></i>
+            </a>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+    </div>
+    </div>
+    </div>
+
+    <div class="alert alert-warning text-center" ng-if="vm.employeeprofiles.$resolved && !vm.employeeprofiles.length">
+        คุณยังไม่มีรายชื่อพนักงาน <a ui-sref="employeeprofiles.create">เพิ่มพนักงานใหม่</a>?
+    </div>
+</section>
