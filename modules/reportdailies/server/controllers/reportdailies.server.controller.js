@@ -263,27 +263,27 @@ exports.reportdata = function (req, res, next) {
             } else {
 
                 var datas = [];
-                // var chkins = result.filter(function (row) {
-                //     if (row.user.company) {
-                //         return row.user.company.toString() === req.user.company.toString();
-                //     }
 
-                // });
                 var chkins = result;
                 chkins.forEach(function (element) {
 
                     var emp = req.employeeprofiles.filter(function (_emp) {
-                        //console.log(_emp.email);
-                        //console.log(element.email);
                         return _emp.email === element.email;
                     });
+
+                    console.log('=================emp=============');
+                    console.log(emp[0]);
+                    console.log('=================end emp==========');
+
+                    console.log('=================element=============');
+                    console.log(element);
+                    console.log('=================end element==========');
 
                     var data = {
                         number: datas.length + 1,
                         employeeid: emp[0].employeeid,
                         firstName: emp[0].firstname,
                         lastName: emp[0].lastname,
-                        user: element.user,
                         email: element.email,
                         datetimein: element.dateTimeIn,
                         datetimeout: element.dateTimeOut,
@@ -294,13 +294,13 @@ exports.reportdata = function (req, res, next) {
                         timelate: emp[0] ? workingHoursBetweenDatesLate(emp[0].shiftin, element.dateTimeIn) : null,
                         workinghours: workingHoursBetweenDates(element.dateTimeIn, element.dateTimeOut),
                         distance: emp[0] ? getDistanceFromLatLonInKm(element.locationIn.lat, element.locationIn.lng, emp[0].branchs.latitude, emp[0].branchs.longitude) : null,
-                        distanceout: emp[0] ? getDistanceFromLatLonInKm(element.locationOut.lat, element.locationOut.lng, emp[0].branchs.latitude, emp[0].branchs.longitude) : null,
+                        distanceout: emp[0] ? getDistanceFromLatLonInKm(element.locationOut.lat ? element.locationOut.lat : undefined, 
+                            element.locationOut.lng ? element.locationOut.lng : undefined, 
+                            emp[0].branchs.latitude ? emp[0].branchs.latitude : undefined, 
+                            emp[0].branchs.longitude ? emp[0].branchs.longitude : undefined) : null,
                         remark: ''
                     };
                     datas.push(data);
-                    // element = element ? element : {};
-                    // element.type = 'ios';
-                    // element.timelate = 0;//workingHoursBetweenDatesLate(element.dateTimeIn,element.dateTimeIn);
                 });
                 req.data = datas;
 
@@ -374,8 +374,6 @@ exports.reportmonthByEmployeeid = function (req, res, next, employeeids) {
 exports.reportmonthFilterByEmployeeid = function (req, res, next) {
     if (req.empid && req.empid !== undefined) {
         req.reportbymonth = req.reportbymonth.filter(function (x) {
-            console.log(x.user.email);
-            console.log(req.empprofile.email);
             return x.user.email === req.empprofile.email;
         });
         var dataById = [];
@@ -428,7 +426,6 @@ exports.reportmonthFilterByEmployeeid = function (req, res, next) {
 };
 
 exports.reportmonthly = function (req, res, next) {
-    // req.reportdate = date;
     var condition = { created: { $gte: req.reportdate.firstDay, $lte: req.reportdate.lastDay } };
     if (req.user.roles[0] === 'user') {
         condition = { created: { $gte: req.reportdate.firstDay, $lte: req.reportdate.lastDay }, user: req.user._id };
@@ -443,11 +440,7 @@ exports.reportmonthly = function (req, res, next) {
             } else {
 
                 req.reportbymonth = result.filter(function (x) {
-                    // console.log('=====================Company');
-                    // console.log(req.user.company);
-                    // console.log(x.user.company);
                     return x.user.company.toString() === req.user.company.toString();
-                    //return true;
                 });
 
 
@@ -711,7 +704,6 @@ function workingHoursBetweenDatesLate(startDateTime, endDateTime) {
     var hours = Math.floor(diff / 1000 / 60 / 60);
     diff -= hours * 1000 * 60 * 60;
     var minutes = Math.floor(diff / 1000 / 60);
-    console.log(parseInt(start[0]) + " : " + parseInt(end[0]));
     if (parseInt(start[0]) <= parseInt(end[0])) {
         // If using time pickers with 24 hours format, add the below line get exact hours
         if (hours < 0) {
